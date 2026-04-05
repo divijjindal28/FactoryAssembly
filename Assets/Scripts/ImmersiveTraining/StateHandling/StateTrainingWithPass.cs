@@ -119,7 +119,8 @@ namespace ImmersiveTraining.StateHandling
             Invoke(nameof(calibrateStartingPosition), 2f);
         }
 
-        private void calibrateStartingPosition() {
+        
+        public void calibrateStartingPosition() {
             Debug.Log($"StateTrainingWithPassSTART");
             _cachedStartingTransform = new GameObject();
             _cachedStartingTransform.name = gameObject.name + "startingTransform";

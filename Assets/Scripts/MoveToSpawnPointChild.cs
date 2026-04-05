@@ -5,14 +5,20 @@ public class MoveToSpawnPointChild : MonoBehaviour
     public GameObject objectToMove;
     public Transform referencePoint;
     public GameObject gameObject;
+    public GameObject cube;
 
 void Start()
     {
         Debug.Log("MoveToSpawnPointChild: Start() called");
-
         Invoke(nameof(MoveToSpawnPointMethod1), 1f);
+        InvokeRepeating(nameof(ChangePosition), 2f, 0.1f);
 
         Debug.Log("MoveToSpawnPointChild: Invoke scheduled for MoveToSpawnPointMethod after 1 second");
+    }
+
+    void ChangePosition() {
+        objectToMove.transform.position = cube.transform.position;
+        objectToMove.transform.eulerAngles = new Vector3(objectToMove.transform.eulerAngles.x, cube.transform.eulerAngles.y, objectToMove.transform.eulerAngles.z);
     }
 
     void MoveToSpawnPointMethod0()
@@ -78,7 +84,6 @@ void Start()
 
     void MoveToSpawnPointMethod1()
     {
-        Debug.Log("MoveToSpawnPointChild: MoveToSpawnPointMethod() started");
 
         GameObject spawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint");
 
@@ -124,15 +129,21 @@ void Start()
         //Vector3 delta = targetPoint.position - referencePoint.position;
 
         //Debug.Log("MoveToSpawnPointChild: Calculated delta -> " + delta);
+        Debug.Log("MoveToSpawnPointChild:ABCD 0 " + objectToMove.transform.localPosition);
+        Debug.Log("MoveToSpawnPointChild:ABCD 1 " + objectToMove.transform.position);
+        Debug.Log("MoveToSpawnPointChild:ABCD 2 " + targetPoint.transform.localPosition);
+        Debug.Log("MoveToSpawnPointChild:ABCD 3 " + targetPoint.transform.position);
+        cube.transform.localPosition = targetPoint.position;
+        Debug.Log("MoveToSpawnPointChild:ABCD 0 " + objectToMove.transform.localPosition);
+        Debug.Log("MoveToSpawnPointChild:ABCD 1 " + objectToMove.transform.position);
+        Debug.Log("MoveToSpawnPointChild:ABCD 2 " + targetPoint.transform.localPosition);
+        Debug.Log("MoveToSpawnPointChild:ABCD 3 " + targetPoint.transform.position);
 
-        objectToMove.transform.position = targetPoint.position;
-        Debug.Log("MoveToSpawnPointChild: New objectToMove position -> " + objectToMove.transform.position);
-        //objectToMove.transform.position = new Vector3(objectToMove.transform.position.x - 4,
-        //                                            objectToMove.transform.position.y,
-        //                                            objectToMove.transform.position.z -2);
-        Debug.Log("MoveToSpawnPointChild: New objectToMove position -> " + objectToMove.transform.position);
+        //cube.transform.localPosition = new Vector3(objectToMove.transform.localPosition.x + (referencePoint.transform.localPosition.x * 0.2f),
+        //                                            objectToMove.transform.localPosition.y,
+        //                                            objectToMove.transform.localPosition.z + (referencePoint.transform.localPosition.z * 0.2f));
 
-        objectToMove.transform.rotation = targetPoint.rotation;
+        cube.transform.rotation = targetPoint.rotation;
         //objectToMove.transform.rotation = new Quaternion(objectToMove.transform.rotation.x,
         //                                            objectToMove.transform.rotation.y+180,
         //                                            objectToMove.transform.rotation.z,
@@ -224,11 +235,11 @@ void Start()
     }
 
 
-    private void Update()
-    {
-        Debug.Log("MoveToSpawnPointChild: activeSelf : "+ gameObject.activeSelf);
-        Debug.Log("MoveToSpawnPointChild: position   : " + gameObject.transform.position);
-    }
+    //private void Update()
+    //{
+    //    Debug.Log("MoveToSpawnPointChild: activeSelf : "+ gameObject.activeSelf);
+    //    Debug.Log("MoveToSpawnPointChild: position   : " + gameObject.transform.position);
+    //}
 
 
 }
